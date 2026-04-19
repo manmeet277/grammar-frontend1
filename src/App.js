@@ -14,7 +14,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "https://a3f5-35-197-157-21.ngrok-free.app/", // 🔴 CHANGE THIS
+        "https://0d7c-34-16-137-69.ngrok-free.app/", // 🔴 CHANGE THIS
         {
           method: "POST",
           headers: {
