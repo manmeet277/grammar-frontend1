@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState("");
 
   const correctText = async () => {
-    const response = await fetch("https://e129-34-142-161-236.ngrok-free.app/", {
+    const response = await fetch("https://2ade-8-229-118-50.ngrok-free.app/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
