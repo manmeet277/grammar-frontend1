@@ -4,76 +4,37 @@ function App() {
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
 
-  const getCorrection = async () => {
-    if (!text.trim()) {
-      alert("Please provide some text to analyze.");
-      return;
-    }
+  const correctText = async () => {
+    const response = await fetch("https://b679-34-16-193-43.ngrok-free.app/correct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: text }),
+    });
 
-    setResult("Processing...");
-
-    try {
-      const response = await fetch(
-        "https://b679-34-16-193-43.ngrok-free.app/correct", // 🔴 CHANGE THIS
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ text: text }),
-        }
-      );
-
-      const data = await response.json();
-      setResult(data.corrected);
-    } catch (error) {
-      setResult("Backend not reachable");
-    }
+    const data = await response.json();
+    setResult(data.corrected);
   };
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 to-blue-100 min-h-screen">
-      <div className="container mx-auto px-4 py-12">
+    <div style={{ padding: "40px" }}>
+      <h1>Grammar Correction Engine</h1>
 
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-indigo-900 mb-2">
-            LingoCorrect Engine
-          </h1>
-          <p className="text-gray-600 italic">
-            Elevate your syntax with AI-driven precision.
-          </p>
-        </header>
+      <textarea
+        rows="5"
+        cols="50"
+        placeholder="Enter text..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
 
-        <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+      <br /><br />
 
-          <div className="p-8 rounded-2xl shadow-xl bg-white">
-            <h2 className="text-xl font-bold mb-4">Draft</h2>
+      <button onClick={correctText}>Correct</button>
 
-            <textarea
-              className="w-full h-64 p-4 border rounded-xl"
-              placeholder="Enter your text here..."
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-
-            <button
-              onClick={getCorrection}
-              className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-xl"
-            >
-              ANALYZE & REFINE
-            </button>
-          </div>
-
-          <div className="p-8 rounded-2xl shadow-xl bg-white">
-            <h2 className="text-xl font-bold mb-4">Refined Output</h2>
-
-            <div className="h-64 p-4 bg-gray-100 rounded-xl">
-              {result || "Waiting for input..."}
-            </div>
-          </div>
-
-        </div>
-      </div>
+      <h3>Output:</h3>
+      <p>{result}</p>
     </div>
   );
 }
