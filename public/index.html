@@ -2,7 +2,7 @@
     const chatThread = document.getElementById('chatThread');
     const userInput = document.getElementById('userInput');
 
-    const API_URL = "http://127.0.0.1:8000/correct"; // 🔴 CHANGE HERE
+    const API_URL = "https://b679-34-16-193-43.ngrok-free.app/correct"; // 🔴 CHANGE HERE
 
     function handleKeyPress(e) {
         if (e.key === 'Enter') sendMessage();
@@ -18,7 +18,7 @@
         const loadingId = addLoadingIndicator();
 
         try {
-            const response = await fetch('https://b679-34-16-193-43.ngrok-free.app/correct', {
+            const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: text })
