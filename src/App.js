@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState("");
 
   const correctText = async () => {
-    const response = await fetch("https://1abb-8-229-232-174.ngrok-free.app/", {
+    const response = await fetch("https://authorities-countries-cluster-dairy.trycloudflare.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
