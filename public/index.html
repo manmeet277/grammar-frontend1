@@ -63,7 +63,7 @@
         const loadingId = addLoadingIndicator();
 
         try {
-            const response = await fetch('https://grammar-backend-ntjn.onrender.com/correct', {
+            const response = await fetch('https://meet227-grammar-corrector.hf.space/correct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: text })
