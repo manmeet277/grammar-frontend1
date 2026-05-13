@@ -3,9 +3,19 @@ import { useState } from "react";
 function App() {
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const correctText = async () => {
+
+    if (!text.trim()) {
+      alert("Please enter some text!");
+      return;
+    }
+
+    setLoading(true);
+
     try {
+
       const response = await fetch(
         "https://meet227-grammar-corrector.hf.space/correct",
         {
@@ -17,18 +27,28 @@ function App() {
         }
       );
 
+      if (!response.ok) {
+        throw new Error("Backend error");
+      }
+
       const data = await response.json();
 
-      // Set corrected text
       setResult(data.corrected);
 
-      // Show popup notification
       if (data.notification) {
         alert(data.notification);
       }
+
     } catch (error) {
-      console.error("Error:", error);
-      alert("Server connection failed!");
+
+      console.error(error);
+
+      alert(
+        "Backend is starting or unavailable. Please wait a few seconds and try again."
+      );
+
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,9 +67,12 @@ function App() {
       <br />
       <br />
 
-      <button onClick={correctText}>Correct</button>
+      <button onClick={correctText} disabled={loading}>
+        {loading ? "Correcting..." : "Correct"}
+      </button>
 
       <h3>Output:</h3>
+
       <p>{result}</p>
     </div>
   );
