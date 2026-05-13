@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const correctText = async () => {
-
+    
     // Frontend empty check
     if (!text.trim()) {
       alert("Please enter some text!");
@@ -21,7 +21,7 @@ function App() {
     }
 
     setLoading(true);
-
+    alert("Button clicked!");
     try {
 
       const response = await fetch(
