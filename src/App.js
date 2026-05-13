@@ -7,7 +7,7 @@ function App() {
   const correctText = async () => {
     try {
       const response = await fetch(
-        "https://grammar-backend-ntjn.onrender.com/correct",
+        "https://meet227-grammar-corrector.hf.space/correct",
         {
           method: "POST",
           headers: {
