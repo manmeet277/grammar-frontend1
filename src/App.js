@@ -5,7 +5,7 @@ function App() {
   const [result, setResult] = useState("");
 
   const correctText = async () => {
-    const response = await fetch("https://authorities-countries-cluster-dairy.trycloudflare.com/", {
+    const response = await fetch("https://d0f6-35-245-71-252.ngrok-free.app/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ function App() {
 async function sendToCorrection() {
     const textInput = document.getElementById("userInput").value;
     
-    const response = await fetch('YOUR_NGROK_URL/correct', {
+    const response = await fetch('https://d0f6-35-245-71-252.ngrok-free.app/correct', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: textInput })
