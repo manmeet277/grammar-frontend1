@@ -7,7 +7,7 @@ function App() {
   const correctText = async () => {
     try {
       const response = await fetch(
-        "https://d0f6-35-245-71-252.ngrok-free.app/correct",
+        "https://grammar-backend-ntjn.onrender.com/correct",
         {
           method: "POST",
           headers: {
