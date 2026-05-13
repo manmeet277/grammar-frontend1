@@ -16,7 +16,24 @@ function App() {
     const data = await response.json();
     setResult(data.corrected);
   };
+async function sendToCorrection() {
+    const textInput = document.getElementById("userInput").value;
+    
+    const response = await fetch('YOUR_NGROK_URL/correct', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: textInput })
+    });
 
+    const data = await response.json();
+
+    // Show the result in your UI
+    document.getElementById("outputArea").innerText = data.corrected;
+
+    // TRIGGER THE POPUP
+    alert(data.notification); 
+    // You can replace alert() with a nice Toast notification or Modal
+}
   return (
     <div style={{ padding: "40px" }}>
       <h1>Grammar Correction Engine</h1>
