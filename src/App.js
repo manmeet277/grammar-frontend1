@@ -5,35 +5,33 @@ function App() {
   const [result, setResult] = useState("");
 
   const correctText = async () => {
-    const response = await fetch("https://d0f6-35-245-71-252.ngrok-free.app/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: text }),
-    });
+    try {
+      const response = await fetch(
+        "https://d0f6-35-245-71-252.ngrok-free.app/correct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text }),
+        }
+      );
 
-    const data = await response.json();
-    setResult(data.corrected);
+      const data = await response.json();
+
+      // Set corrected text
+      setResult(data.corrected);
+
+      // Show popup notification
+      if (data.notification) {
+        alert(data.notification);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server connection failed!");
+    }
   };
-async function sendToCorrection() {
-    const textInput = document.getElementById("userInput").value;
-    
-    const response = await fetch('https://d0f6-35-245-71-252.ngrok-free.app/correct', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: textInput })
-    });
 
-    const data = await response.json();
-
-    // Show the result in your UI
-    document.getElementById("outputArea").innerText = data.corrected;
-
-    // TRIGGER THE POPUP
-    alert(data.notification); 
-    // You can replace alert() with a nice Toast notification or Modal
-}
   return (
     <div style={{ padding: "40px" }}>
       <h1>Grammar Correction Engine</h1>
@@ -46,7 +44,8 @@ async function sendToCorrection() {
         onChange={(e) => setText(e.target.value)}
       />
 
-      <br /><br />
+      <br />
+      <br />
 
       <button onClick={correctText}>Correct</button>
 
