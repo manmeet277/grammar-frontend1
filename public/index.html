@@ -63,7 +63,7 @@
         const loadingId = addLoadingIndicator();
 
         try {
-            const response = await fetch('https://d0f6-35-245-71-252.ngrok-free.app/correct', {
+            const response = await fetch('https://grammar-backend-ntjn.onrender.com/correct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: text })
