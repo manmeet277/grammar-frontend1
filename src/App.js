@@ -1,14 +1,22 @@
 import { useState } from "react";
 
 function App() {
+
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   const correctText = async () => {
 
+    // Frontend empty check
     if (!text.trim()) {
       alert("Please enter some text!");
+      return;
+    }
+
+    // Frontend character limit
+    if (text.length > 2000) {
+      alert("Input exceeds 2000 character limit!");
       return;
     }
 
@@ -27,14 +35,14 @@ function App() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Backend error");
-      }
-
       const data = await response.json();
 
+      console.log(data);
+
+      // Show corrected output
       setResult(data.corrected);
 
+      // ALWAYS show popup
       if (data.notification) {
         alert(data.notification);
       }
@@ -44,21 +52,24 @@ function App() {
       console.error(error);
 
       alert(
-        "Backend is starting or unavailable. Please wait a few seconds and try again."
+        "Backend is unavailable or still starting."
       );
 
     } finally {
+
       setLoading(false);
+
     }
   };
 
   return (
     <div style={{ padding: "40px" }}>
+
       <h1>Grammar Correction Engine</h1>
 
       <textarea
-        rows="5"
-        cols="50"
+        rows="7"
+        cols="60"
         placeholder="Enter text..."
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -67,13 +78,17 @@ function App() {
       <br />
       <br />
 
-      <button onClick={correctText} disabled={loading}>
+      <button
+        onClick={correctText}
+        disabled={loading}
+      >
         {loading ? "Correcting..." : "Correct"}
       </button>
 
       <h3>Output:</h3>
 
       <p>{result}</p>
+
     </div>
   );
 }
