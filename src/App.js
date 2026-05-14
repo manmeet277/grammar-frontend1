@@ -19,7 +19,7 @@ function App() {
     alert("Button clicked!");
     try {
       const response = await fetch(
-        "https://meet227-grammar-corrector.hf.space/correct",
+        "/correct",
         {
           method: "POST",
           headers: {
